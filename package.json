@@ -4,7 +4,7 @@
   "description": "A CommonJS library for connecting to the Epson Connect API",
   "main": "src/Client.js",
   "scripts": {
-    "test": "jest Mock"
+    "generate-docs": "jsdoc -c jsdoc.json -t node_modules/minami"
   },
   "keywords": [],
   "author": "Christopher C. Smith <christopher.smith@promptlytechnologies.com>",
@@ -17,9 +17,8 @@
     "axios-mock-adapter": "^1.21.5",
     "dotenv": "^16.3.1",
     "jest": "^29.6.1",
-    "sinon": "^15.2.0"
-  },
-  "scripts": {
-    "generate-docs": "jsdoc -c jsdoc.json"
-}
+    "minami": "^1.2.3",
+    "sinon": "^15.2.0",
+    "taffydb": "^2.7.3"
+  }
 }

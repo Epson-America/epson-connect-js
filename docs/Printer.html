@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Scanner - Documentation</title>
+    <title>Printer - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Scanner</h1>
+    <h1 class="page-title">Printer</h1>
     
 
     
@@ -42,10 +42,10 @@
 <header>
     
         <h2>
-        Scanner
+        Printer
         </h2>
         
-            <div class="class-description">Represents a Scanner that works with the given authentication context.</div>
+            <div class="class-description">Represents a Printer with various capabilities and operations.</div>
         
     
 </header>
@@ -60,14 +60,14 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="Scanner"><span class="type-signature"></span>new Scanner<span class="signature">(authContext)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Printer"><span class="type-signature"></span>new Printer<span class="signature">(authContext)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Create a Scanner instance.
+    Create a Printer instance.
 </div>
 
 
@@ -103,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Scanner.js.html">Scanner.js</a>, <a href="Scanner.js.html#line8">line 8</a>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line12">line 12</a>
     </li></ul></dd>
     
 
@@ -164,7 +164,7 @@
             
 
             <td class="description last">
-                The authentication context required for the scanner.
+                The authentication context for the printer.
                 
             </td>
         </tr>
@@ -192,7 +192,7 @@
 <dl>
     <dt>
         <div class="param-desc">
-        Throws an error if authContext is not an instance of AuthContext.
+        Throws an error if the provided authContext is not an instance of AuthContext.
         </div>
     </dt>
     <dd></dd>
@@ -203,7 +203,7 @@
             </dt>
             <dd>
                 
-<span class="param-type"><code><a href="ScannerError.html">ScannerError</a></code></span>
+<span class="param-type"><code><a href="PrinterError.html">PrinterError</a></code></span>
 
 
             </dd>
@@ -240,15 +240,65 @@
         
             
 <div class="section-members">
-<h4 class="name" id="VALID_DESTINATION_TYPES"><span class="type-signature">(constant) </span>VALID_DESTINATION_TYPES<span class="type-signature"> :Set.&lt;string></span></h4>
+<h4 class="name" id="deviceId"><span class="type-signature"></span>deviceId<span class="type-signature"></span></h4>
 
 
 
 
-<div class="description">
-    Set of valid destination types.
-</div>
 
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>deviceId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Device ID of the printer.</td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
 
 
 
@@ -282,7 +332,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Scanner.js.html">Scanner.js</a>, <a href="Scanner.js.html#line28">line 28</a>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -294,16 +344,6 @@
 </dl>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>Set.&lt;string></code></span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -323,14 +363,14 @@
 
     
 
-    <h4 class="name" id="add"><span class="type-signature">(async) </span>add<span class="signature">(name, destination, type_<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    <h4 class="name" id="cancelPrint"><span class="type-signature">(async) </span>cancelPrint<span class="signature">(jobId, operatedBy<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Add a new destination.
+    Cancels a pending print job.
 </div>
 
 
@@ -366,7 +406,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Scanner.js.html">Scanner.js</a>, <a href="Scanner.js.html#line51">line 51</a>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line155">line 155</a>
     </li></ul></dd>
     
 
@@ -414,7 +454,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>jobId</code></td>
             
 
             <td class="type">
@@ -443,7 +483,7 @@
             
 
             <td class="description last">
-                Name/alias for the destination.
+                ID of the print job to be canceled.
                 
             </td>
         </tr>
@@ -452,45 +492,7 @@
 
         <tr>
             
-                <td class="name"><code>destination</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">
-                Actual destination address.
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>type_</code></td>
+                <td class="name"><code>operatedBy</code></td>
             
 
             <td class="type">
@@ -517,13 +519,13 @@
             
                 <td class="default">
                 
-                    'mail'
+                    'user'
                 
                 </td>
             
 
             <td class="description last">
-                Type of destination. Defaults to 'mail'.
+                Identifier for who is canceling the job.
                 
             </td>
         </tr>
@@ -551,7 +553,7 @@
 <dl>
     <dt>
         <div class="param-desc">
-        Throws an error for invalid input values.
+        Throws an error if invalid operator is provided or the job status does not allow cancelation.
         </div>
     </dt>
     <dd></dd>
@@ -562,7 +564,7 @@
             </dt>
             <dd>
                 
-<span class="param-type"><code><a href="ScannerError.html">ScannerError</a></code></span>
+<span class="param-type"><code><a href="PrinterError.html">PrinterError</a></code></span>
 
 
             </dd>
@@ -596,7 +598,7 @@
 
 
 <div class="param-desc">
-    Returns the response from the server.
+    Returns the printer's response after canceling the print job.
 </div>
 
     
@@ -611,14 +613,14 @@
 
     
 
-    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    <h4 class="name" id="capabilities"><span class="type-signature">(async) </span>capabilities<span class="signature">(mode)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
 
     
 
 
 
 <div class="description">
-    List the current set of destinations.
+    Fetches the capabilities of the printer based on the mode.
 </div>
 
 
@@ -654,115 +656,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Scanner.js.html">Scanner.js</a>, <a href="Scanner.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="section-returns">
-<h5>Returns:</h5>
-
-        
-
-<dl class="param-type">
-    <dt>
-        Type:
-    </dt>
-    <dd>
-        
-<span class="param-type"><code>Promise.&lt;Object></code></span>
-
-
-    </dd>
-</dl>
-
-
-<div class="param-desc">
-    Returns the response from the server.
-</div>
-
-    
-</div>
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="remove"><span class="type-signature">(async) </span>remove<span class="signature">(id_)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Remove an existing destination.
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Scanner.js.html">Scanner.js</a>, <a href="Scanner.js.html#line94">line 94</a>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line60">line 60</a>
     </li></ul></dd>
     
 
@@ -806,13 +700,13 @@
 
         <tr>
             
-                <td class="name"><code>id_</code></td>
+                <td class="name"><code>mode</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>number</code></span>
+<span class="param-type"><code>string</code></span>
 
 
             
@@ -823,7 +717,7 @@
             
 
             <td class="description last">
-                ID of the destination to be removed.
+                Mode of operation.
                 
             </td>
         </tr>
@@ -856,12 +750,16 @@
     </dt>
     <dd>
         
-<span class="param-type"><code>Promise.&lt;void></code></span>
+<span class="param-type"><code>Promise.&lt;Object></code></span>
 
 
     </dd>
 </dl>
 
+
+<div class="param-desc">
+    Returns the printer's capabilities for the given mode.
+</div>
 
     
 </div>
@@ -875,14 +773,14 @@
 
     
 
-    <h4 class="name" id="update"><span class="type-signature">(async) </span>update<span class="signature">(id_, name<span class="signature-attributes">opt</span>, destination<span class="signature-attributes">opt</span>, type_<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    <h4 class="name" id="executePrint"><span class="type-signature">(async) </span>executePrint<span class="signature">(jobId)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
 
     
 
 
 
 <div class="description">
-    Update an existing destination.
+    Initiates the print job for a file.
 </div>
 
 
@@ -918,7 +816,435 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Scanner.js.html">Scanner.js</a>, <a href="Scanner.js.html#line72">line 72</a>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line128">line 128</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jobId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                ID of the print job.
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;Object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    Returns the printer's response for the print job execution.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="info"><span class="type-signature">(async) </span>info<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieves information about the printer.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;Object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    Returns detailed information about the printer.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="jobInfo"><span class="type-signature">(async) </span>jobInfo<span class="signature">(jobId)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Retrieves information about a specific print job.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>jobId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                ID of the print job.
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;Object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    Returns detailed information about the print job.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="notification"><span class="type-signature">(async) </span>notification<span class="signature">(callbackUri, enabled<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Handles printer notifications.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line200">line 200</a>
     </li></ul></dd>
     
 
@@ -966,13 +1292,13 @@
 
         <tr>
             
-                <td class="name"><code>id_</code></td>
+                <td class="name"><code>callbackUri</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>number</code></span>
+<span class="param-type"><code>string</code></span>
 
 
             
@@ -995,7 +1321,7 @@
             
 
             <td class="description last">
-                ID of the destination to be updated.
+                URI for receiving callbacks.
                 
             </td>
         </tr>
@@ -1004,13 +1330,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>enabled</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>boolean</code></span>
 
 
             
@@ -1031,13 +1357,189 @@
             
                 <td class="default">
                 
-                    null
+                    true
                 
                 </td>
             
 
             <td class="description last">
-                New name for the destination.
+                Whether to enable or disable notifications.
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;Object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    Returns the printer's response for the notification settings.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="print"><span class="type-signature">(async) </span>print<span class="signature">(filePath, settings<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;string>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Combines print settings, file upload, and print job execution to print a file.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line141">line 141</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                Path to the file to be printed.
                 
             </td>
         </tr>
@@ -1046,13 +1548,13 @@
 
         <tr>
             
-                <td class="name"><code>destination</code></td>
+                <td class="name"><code>settings</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>Object</code></span>
 
 
             
@@ -1073,22 +1575,316 @@
             
                 <td class="default">
                 
-                    null
+                    {}
                 
                 </td>
             
 
             <td class="description last">
-                New destination address.
+                Print settings.
                 
             </td>
         </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;string></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    Returns the ID of the print job.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="printSetting"><span class="type-signature">(async) </span>printSetting<span class="signature">(settings)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Handles the print settings for the printer.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
 
         <tr>
             
-                <td class="name"><code>type_</code></td>
+                <td class="name"><code>settings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Object</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Print settings.
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise.&lt;Object></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    Returns the printer's response to the provided settings.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="uploadFile"><span class="type-signature">(async) </span>uploadFile<span class="signature">(uploadUri, filePath, printMode)</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Uploads a file to the printer.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Printer.js.html">Printer.js</a>, <a href="Printer.js.html#line92">line 92</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>uploadUri</code></td>
             
 
             <td class="type">
@@ -1101,27 +1897,63 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    null
-                
-                </td>
             
 
             <td class="description last">
-                New type of destination.
+                URI for uploading the file.
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filePath</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Path to the file being uploaded.
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>printMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Mode in which the file should be printed.
                 
             </td>
         </tr>
@@ -1149,7 +1981,7 @@
 <dl>
     <dt>
         <div class="param-desc">
-        Throws an error for invalid input values or if destination is not registered.
+        Throws an error if the file extension is invalid.
         </div>
     </dt>
     <dd></dd>
@@ -1160,7 +1992,7 @@
             </dt>
             <dd>
                 
-<span class="param-type"><code><a href="ScannerError.html">ScannerError</a></code></span>
+<span class="param-type"><code><a href="PrinterError.html">PrinterError</a></code></span>
 
 
             </dd>
@@ -1194,7 +2026,7 @@
 
 
 <div class="param-desc">
-    Returns the response from the server.
+    Returns the printer's response after the file upload.
 </div>
 
     
