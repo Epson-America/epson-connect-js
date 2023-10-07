@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Epson Connect JS</h1>
+<p>A JavaScript library for interacting with the Epson Connect API. This library provides a set of methods for authentication and various printer and scanner functionalities.</p>
+<h2>Installation</h2>
+<h3>From npm</h3>
+<p>To install using the <code>npm</code> package manager, use:</p>
+<pre class="prettyprint source lang-bash"><code>npm install epson-connect-js
+</code></pre>
+<h3>From the Github repo</h3>
+<p>To install from Github, use:</p>
+<pre class="prettyprint source lang-bash"><code>npm install https://github.com/chriscarrollsmith/epson-connect-js.git#main
+</code></pre>
+<p>Here's what it will look like as a dependency in <code>package.json</code>:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;dependencies&quot;: {
+    &quot;epson-connect-js&quot;: &quot;github:chriscarrollsmith/epson-connect-js#main&quot;,
+  }
+}
+</code></pre>
+<h2>Usage</h2>
+<p>This library provides a set of classes that correspond to the different aspects of the Epson Connect API. The <code>Client</code> class is the primary interface for interacting with the API, and it manages authentication and provides access to printer and scanner functionality. The <code>Printer</code> and <code>Scanner</code> classes provide methods for interacting with the printer and scanner functionalities of the API respectively. Please ensure you have a good understanding of the asynchronous nature of JavaScript to effectively use this library, as many operations rely on Promises and should be properly awaited or handled.</p>
+<h3>Client</h3>
+<p>In your JavaScript files, <code>import</code> or <code>require</code> the <code>Client</code> module from the library as follows:</p>
+<pre class="prettyprint source lang-javascript"><code>const { Client } = require('epson-connect-js');
+</code></pre>
+<p>You will need to construct an object of the <code>Client</code> class with the arguments <code>printerEmail</code>, <code>clientId</code>, <code>clientSecret</code>. Alternatively, you can set the environment variables <code>EPSON_CONNECT_API_PRINTER_EMAIL</code>,<code>EPSON_CONNECT_API_CLIENT_ID</code>, and <code>EPSON_CONNECT_API_CLIENT_SECRET</code>. Note that you will have to register for a license with the <a href="https://www.epsondevelopers.com/api/epson-connect/">Epson Connect API</a> in order to obtain these credentials. (The <code>baseUrl</code> argument of the <code>Client</code> class is optional, and if not provided, the default value of <code>https://api.epsonconnect.com</code> will be used.)</p>
+<pre class="prettyprint source lang-javascript"><code>  // printerEmail, clientId, and clientSecret must be obtained from Epson
+  const printerEmail = 'printerid@someemail.com' 
+  const clientId = 'someclientid'
+  const clientSecret = 'someclientsecret'
+  const baseUrl = 'https://api.epsonconnect.com'
+
+  // If no baseUrl is provided, the default will be 'https://api.epsonconnect.com'
+  const client = new Client(printerEmail, clientId, clientSecret, baseUrl); 
+</code></pre>
+<p>The <code>initialize()</code> method of the <code>Client</code> class is responsible for initiating the authentication process, and it must be awaited, as it's an asynchronous operation.</p>
+<pre class="prettyprint source lang-javascript"><code>(async () => {
+  // Initiate the authentication process
+  await client.initialize();
+
+  // Now that we're authenticated, we can scan, print, and deauthenticate here
+})();
+</code></pre>
+<p>Alternatively, to speed up execution, you can save the returned Promise directly with <code>.catch()</code> and await it later in your code. This is useful if you want to authenticate at application startup but you don't need to use the printer or scanner until later. For example:</p>
+<pre class="prettyprint source lang-javascript"><code>// Construct the client as part of application startup
+const client = new Client(printerEmail, clientId, clientSecret, baseUrl);
+
+// Save the initialization promise for later use
+const initializePromise = client.initialize().catch((error) => {
+  console.error('Error initializing client:', error);
+});
+
+// Later in your code, you might have a function triggered by a user action
+async function handlePrintRequest() {
+  // Wait for the client to finish initializing before attempting to print
+  await initializePromise;
+
+  // Now that we're authenticated, we can scan, print, and deauthenticate here
+}
+</code></pre>
+<p>Once you've constructed and initialized an object of the <code>Client</code> class, you can use its <code>printer</code> and <code>scanner</code> properties as getters that return instances of the <code>Printer</code> and <code>Scanner</code> classes, providing various methods to interact with the printing and scanning functionalities of the Epson Connect API.</p>
+<p>For example:</p>
+<pre class="prettyprint source lang-javascript"><code>// Get the printer and scanner from the client
+const printer = client.printer;
+const scanner = client.scanner;
+
+// Use printer or scanner to perform printing/scanning operations here
+</code></pre>
+<p>When the application is about to close or no longer needs the client, you can deauthenticate. The <code>deauthenticate()</code> method clears any active authentication sessions, and it also should be awaited, as it's also asynchronous.</p>
+<pre class="prettyprint source lang-javascript"><code>// When the application is about to close or no longer needs the client, you can deauthenticate
+await client.deauthenticate()
+</code></pre>
+<h3>Printer</h3>
+<p>The <code>Printer</code> class offers a suite of methods that enable interactions with an Epson printer. It is typically accessed via the <code>printer</code> getter of a <code>Client</code> instance.</p>
+<p>Before you can utilize the printer methods, make sure you have an initialized <code>Client</code> instance.</p>
+<pre class="prettyprint source lang-javascript"><code>(async () => {
+  const client = new Client(printerEmail, clientId, clientSecret, baseUrl); 
+  await client.initialize();
+})();
+</code></pre>
+<p>Then, get the <code>Printer</code> instance:</p>
+<pre class="prettyprint source lang-javascript"><code>const printer = client.printer;
+</code></pre>
+<p>You can now interact with the printer. Remember, each <code>printer</code> method returns a promise which should be properly handled to ensure error situations are adequately addressed. Use <code>then-catch</code> or <code>async-await</code> with a try-catch block to handle the promises. Here are some examples:</p>
+<h4>Handle a Complete Print Operation with a Single Method</h4>
+<p>The simplest way to execute a complete print operation, including setting up the print job, uploading the file, and executing the print job, is the <code>print(filePath, settings)</code> method:</p>
+<pre class="prettyprint source lang-javascript"><code>// Set the path of the file to print
+const filePath = './path/to/file.pdf'
+
+// Define your print job settings
+let settings = {
+  job_name: &quot;MyFirstPrintJob&quot;,
+  print_mode: &quot;document&quot;,
+  print_setting: {
+    media_size: &quot;ms_a4&quot;,
+    media_type: &quot;mt_plainpaper&quot;,
+    borderless: false,
+    print_quality: &quot;normal&quot;,
+    source: &quot;auto&quot;,
+    color_mode: &quot;color&quot;,
+    two_sided: &quot;none&quot;,
+    reverse_order: false,
+    copies: 1,
+    collate: true
+  }
+};
+
+// Execute the print operation
+const jobId = await printer.print(filePath, settings)
+</code></pre>
+<p>This method returns a <code>jobId</code> which can be used to get information about the print job or cancel the print job (see below).</p>
+<h4>Getting Printer Info</h4>
+<p>To get general information about the printer, use the <code>info()</code> method:</p>
+<pre class="prettyprint source lang-javascript"><code>const response = await printer.info()
+</code></pre>
+<h4>Retrieve Printer Capabilities</h4>
+<p>To retrieve the printer capabilities, use the <code>capabilities(mode)</code> method, where the <code>mode</code> argument is either 'document' or 'photo':</p>
+<pre class="prettyprint source lang-javascript"><code>const response = printer.capabilities(mode='document')
+</code></pre>
+<h4>Setting Up Print Job</h4>
+<p>To set up a print job, you need to define a <code>settings</code> object which contains your printer settings, as shown in the section above titled 'Handle a Complete Print Operation with a Single Method'. Each setting has default values that are automatically applied if not explicitly set. We also have validation in place to ensure your settings are correct and will be accepted by the printer.</p>
+<p>Then call the printSetting method and capture the response.</p>
+<pre class="prettyprint source lang-javascript"><code>// Use the printer instance to set up a print job and capture the jobData object
+const jobData = await printer.printSetting(settings)
+</code></pre>
+<p>Note that calling printSetting before printing is mandatory, and that you must capture the <code>jobData</code> returned by the printSetting call for use in other functions. <code>jobData</code> is an object that contains <code>id</code>, <code>upload_uri</code>, and <code>settings</code> properties. The <code>id</code> property is a unique job ID, and the <code>upload_uri</code> property is the URI to which you will upload the file to be printed for this job. The <code>settings</code> property is the <code>settings</code> object you passed in, but with any default values applied.</p>
+<p>The <code>settings</code> object can contain the following parameters:</p>
+<ul>
+<li><code>job_name</code>: The name of the print job. If not set, a default name will be generated.</li>
+<li><code>print_mode</code>: The print mode which can be either 'document' or 'photo'. Defaults to 'document'.</li>
+<li><code>print_setting</code>: An object containing specific settings for the print job.</li>
+</ul>
+<p>The <code>print_setting</code> object can contain:</p>
+<ul>
+<li><code>media_size</code>: The size of the paper. Default is 'ms_a4'.</li>
+<li><code>media_type</code>: The type of paper. Default is 'mt_plainpaper'.</li>
+<li><code>borderless</code>: Whether or not the print should be borderless. Default is false.</li>
+<li><code>print_quality</code>: The quality of the print. Can be 'high', 'normal', or 'draft'. Default is 'normal'.</li>
+<li><code>source</code>: The paper source. Default is 'auto'.</li>
+<li><code>color_mode</code>: The color mode. Can be 'color' or 'mono'. Default is 'color'.</li>
+<li><code>two_sided</code>: The two-sided mode. Can be 'none', 'long', or 'short'. Default is 'none'.</li>
+<li><code>reverse_order</code>: Whether or not to print in reverse order. Default is false.</li>
+<li><code>copies</code>: The number of copies to print. Default is 1.</li>
+<li><code>collate</code>: Whether or not to collate when printing multiple copies. Default is true. Must be true when using two-sided printing.</li>
+</ul>
+<p>The validation process ensures that all settings are in acceptable formats and values. If the validation fails, a <code>PrintSettingError</code> will be thrown. Handle this error appropriately in your implementation.</p>
+<h4>Uploading File to Print</h4>
+<p>To upload a file to be printed, use the <code>uploadFile(uploadUri, filePath, printMode)</code> method, where printMode is 'document' or 'photo':</p>
+<pre class="prettyprint source lang-javascript"><code>const uploadUri = jobData.upload_uri
+const filePath = '/path/to/file.jpg'
+const printMode = 'photo'
+
+await printer.uploadFile(uploadUri, filePath, printMode)
+</code></pre>
+<h4>Executing Print Job</h4>
+<p>To execute a print job, use the <code>executePrint(jobId)</code> method</p>
+<pre class="prettyprint source lang-javascript"><code>const response = await printer.executePrint(jobId=jobData.id)
+</code></pre>
+<h4>Getting Print Job Info</h4>
+<p>To get the information about a print job you've executed, use the <code>jobInfo(jobId)</code> method. Note that this endpoint will only work <em>after</em> you've executed a print job.</p>
+<pre class="prettyprint source lang-javascript"><code>const response = await printer.jobInfo(jobData.id)
+</code></pre>
+<h4>Cancelling Print Job</h4>
+<p>To cancel a print job, use the <code>cancelPrint(jobId, operatedBy)</code> method:</p>
+<pre class="prettyprint source lang-javascript"><code>await printer.cancelPrint(jobId=jobData.upload_uri, operatedBy='user')
+</code></pre>
+<h4>Setting Up Notifications</h4>
+<p>To set up notifications for printer events, use the <code>notification(callbackUri, enabled)</code> method:</p>
+<pre class="prettyprint source lang-javascript"><code>const callbackUri = 'http://example.com/webhook'
+const enabled = true
+
+await printer.notification(callbackUri, enabled)
+</code></pre>
+<p>The notification HTTP body will look like this:</p>
+<pre class="prettyprint source lang-json"><code>{ 
+ &quot;Param&quot;: { 
+  &quot;JobId&quot;: &quot;d318caa88966442faaee090f858aef35&quot;, 
+  &quot;JobStatus&quot;: { 
+    &quot;Status&quot;: &quot;Pending&quot;, 
+    &quot;StatusReason&quot;: &quot;JobQueued&quot;, 
+    &quot;UpdateDate&quot;: &quot;2021/08/06 06:42:13&quot; 
+  } 
+ } 
+}
+</code></pre>
+<p>This functionality has not yet been tested. We welcome your contributions to improve it or to add unit tests.</p>
+<h3>Scanner</h3>
+<p>The <code>Scanner</code> class provides methods for interacting with an Epson scanner. These methods have not yet been tested. We welcome your contributions to improve them or to add unit tests.</p>
+<pre class="prettyprint source lang-javascript"><code>const scanner = new Scanner(authContext);
+scanner.list();
+scanner.add(name, destination, type);
+scanner.update(id, name, destination, type);
+scanner.remove(id);
+</code></pre>
+<h2>Error Handling</h2>
+<p>The library defines a set of custom error types (<code>ClientError</code>, <code>AuthenticationError</code>, <code>ApiError</code>, <code>PrinterError</code>, <code>PrintSettingError</code>, <code>ScannerError</code>) to provide detailed error information.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ApiError.html">ApiError</a></li><li><a href="AuthContext.html">AuthContext</a></li><li><a href="AuthenticationError.html">AuthenticationError</a></li><li><a href="Client.html">Client</a></li><li><a href="ClientError.html">ClientError</a></li><li><a href="Scanner.html">Scanner</a></li><li><a href="ScannerError.html">ScannerError</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Oct 07 2023 13:54:05 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,4 +1,6 @@
-//PrinterSettings.js
+/**
+ * @file Provides settings and validation for the Printer.
+ */
 
 const VALID_PRINT_MODES = new Set([
     'document',
@@ -58,7 +60,12 @@ const VALID_PRINT_MODES = new Set([
     'long',
     'short',
   ]);
-  
+
+/**
+ * Generates a random alphanumeric string of a given length.
+ * @param {number} length - Length of the desired random string.
+ * @returns {string} Random alphanumeric string.
+ */
   function generateRandomString(length) {
     const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let result = '';
@@ -67,7 +74,12 @@ const VALID_PRINT_MODES = new Set([
     }
     return result;
   }
-  
+
+/**
+ * Merges provided settings with default printer settings.
+ * @param {Object} [settings={}] - User-provided settings.
+ * @returns {Object} Merged settings.
+ */
   function mergeWithDefaultSettings(settings = {}) {
     settings.job_name = settings.job_name || `job-${generateRandomString(8)}`;
     settings.print_mode = settings.print_mode || 'document';
@@ -91,6 +103,12 @@ const VALID_PRINT_MODES = new Set([
     return settings;
   }
   
+
+/**
+ * Validates printer settings.
+ * @param {Object} [settings={}] - Settings to be validated.
+ * @throws {PrintSettingError} Throws error if settings are invalid.
+ */
   function validateSettings(settings = {}) {
     const extraKeys = Object.keys(settings).filter(key => !['job_name', 'print_mode', 'print_setting'].includes(key));
     if (extraKeys.length > 0) {
@@ -181,6 +199,10 @@ const VALID_PRINT_MODES = new Set([
     }
   }  
   
+  /**
+ * Error representing invalid printer settings.
+ * @extends {Error}
+ */
   class PrintSettingError extends Error {
     constructor(message) {
       super(message);

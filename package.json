@@ -18,5 +18,8 @@
     "dotenv": "^16.3.1",
     "jest": "^29.6.1",
     "sinon": "^15.2.0"
-  }
+  },
+  "scripts": {
+    "generate-docs": "jsdoc -c jsdoc.json"
+}
 }
