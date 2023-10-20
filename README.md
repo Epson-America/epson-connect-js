@@ -126,7 +126,22 @@ const printer = client.printer;
 ```
 
 You can now interact with the printer. Remember, each `printer` method returns a promise which should be properly handled to ensure error situations are adequately addressed. Use `then-catch` or `async-await` with a try-catch block to handle the promises. Here are some examples:
-
+For printing the following file extensions are supported
+```
+doc
+docx
+xls
+xlsx
+ppt
+pptx
+pdf
+jpeg
+jpg
+bmp
+gif
+png
+tiff
+```
 #### Handle a Complete Print Operation with a Single Method
 
 The simplest way to execute a complete print operation, including setting up the print job, uploading the file, and executing the print job, is the `print(filePath, settings)` method:
