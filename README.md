@@ -1,5 +1,5 @@
 # Epson Connect JS
-[Docs](https://epson-connect.github.io/epson-connect-js/)
+[Docs](https://epson-america.github.io/epson-connect-js/)
 
 A JavaScript library for interacting with the Epson Connect API. This library provides a set of methods for authentication and various printer and scanner functionalities.
 
